@@ -54,6 +54,15 @@ export class BoardService {
     return null;
   }
 
+  delete(id: number) {
+    const ind = this.getBoard(id);
+    if (ind > -1) {
+      this.boards.splice(ind, 1);
+      return true;
+    }
+    return false;
+  }
+
   getBoard(id: number) {
     return this.boards.findIndex((board) => board.id === id);
   }
