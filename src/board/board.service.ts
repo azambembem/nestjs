@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { log } from 'console';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 @Injectable()
 export class BoardService {
@@ -33,7 +34,7 @@ export class BoardService {
     const ind = this.boards.findIndex((board) => board.id === id);
     return this.boards[ind];
   }
-  create(data) {
+  create(data: CreateBoardDto) {
     const newBoard = {
       id: this.getNextId(),
       ...data,
