@@ -9,9 +9,8 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
   @Get('name')
   getName(@Query('name') name: string): string {
-    return `Hello ${name}!`;
+    return ` ${name} hello `;
   }
 }
