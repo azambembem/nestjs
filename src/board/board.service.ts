@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { log } from 'console';
 
 @Injectable()
 export class BoardService {
@@ -21,11 +22,26 @@ export class BoardService {
   ];
 
   findAll() {
+    const nextId = this.getNextId();
+    console.log(nextId);
+
+    this.getNextId();
     return this.boards;
   }
 
   find(id: number) {
     const ind = this.boards.findIndex((board) => board.id === id);
     return this.boards[ind];
+  }
+  create(data) {
+    const newBoard = {
+      id: null,
+      ...data,
+    };
+    this.boards.push(newBoard);
+    return newBoard;
+  }
+  getNextId() {
+    return this.boards.sort((a, b) => b.id - a.id)[0].id + 1;
   }
 }

@@ -26,7 +26,7 @@ export class BoardController {
 
   @Post()
   create(@Body() data) {
-    return 'create';
+    return this.boardService.create(data);
   }
 
   @Put(':id')
