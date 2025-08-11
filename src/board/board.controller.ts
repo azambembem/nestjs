@@ -30,8 +30,8 @@ export class BoardController {
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() data) {
-    return `update`;
+  update(@Param('id', ParseIntPipe) id: number, @Body() data) {
+    return this.boardService.update(id, data);
   }
 
   @Delete(':id')
