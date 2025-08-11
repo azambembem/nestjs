@@ -25,7 +25,7 @@ export class BoardService {
   }
 
   find(id: number) {
-    const index = this.boards.findIndex((board) => board.id === id);
-    return this.boards[index];
+    const ind = this.boards.findIndex((board) => board.id === id);
+    return this.boards[ind];
   }
 }
