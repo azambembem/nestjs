@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  ValidationPipe,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -28,7 +29,7 @@ export class BoardController {
   }
 
   @Post()
-  create(@Body() data: CreateBoardDto) {
+  create(@Body(new ValidationPipe()) data: CreateBoardDto) {
     return this.boardService.create(data);
   }
 
