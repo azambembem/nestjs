@@ -35,7 +35,7 @@ export class BoardService {
   }
   create(data) {
     const newBoard = {
-      id: null,
+      id: this.getNextId(),
       ...data,
     };
     this.boards.push(newBoard);
