@@ -1,7 +1,8 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-const { username, email, password } = {
-  username: {
+const { name, email, password } = {
+  name: {
+    MinLength: 'username must be at least 2 characters',
     IsString: 'username must be a string',
     IsNotEmpty: 'username is required',
   },
@@ -16,9 +17,10 @@ const { username, email, password } = {
 };
 
 export class RegisterDto {
-  @IsNotEmpty({ message: username.IsNotEmpty })
-  @IsString({ message: username.IsString })
-  username: string;
+  @MinLength(2, { message: name.MinLength })
+  @IsNotEmpty({ message: name.IsNotEmpty })
+  @IsString({ message: name.IsString })
+  name: string;
 
   @IsNotEmpty({ message: email.IsNotEmpty })
   @IsEmail({}, { message: email.IsEmail }) // {} bu yerga options ham qo‘yiladi
