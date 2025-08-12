@@ -24,6 +24,10 @@ export class User {
   @Column()
   password: string;
 
+  @ApiProperty({ description: 'isVerified', example: true })
+  @Column()
+  isVerified: boolean;
+
   @ApiProperty({ description: 'update date', example: 'update-date' })
   @UpdateDateColumn()
   updatedAt: Date;
