@@ -11,7 +11,7 @@ export class AppController {
 
   @Get()
   getHello(@Ip() ip: string): string {
-    console.log(this.configService.get('ENVIRONMENT'));
+    console.log(this.configService.get<string>('ENVIRONMENT'));
     return this.appService.getHello();
   }
 
