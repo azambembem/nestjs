@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
+  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -20,5 +22,10 @@ export class AuthController {
       registerDto.email,
       registerDto.password,
     );
+  }
+
+  @Get('verify')
+  async verify(@Query() token: string) {
+    return this.authService.verifyEmail(token);
   }
 }
