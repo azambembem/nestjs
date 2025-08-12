@@ -1,25 +1,18 @@
-import {
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Ip,
-  Logger,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Ip, Query } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  private readonly logger = new Logger();
+  constructor(
+    private readonly appService: AppService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Get()
   getHello(@Ip() ip: string): string {
-    console.log(ip);
+    console.log(this.configService.get('ENVIRONMENT'));
     return this.appService.getHello();
-    throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
   }
 
   @Get('name')
