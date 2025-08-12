@@ -19,7 +19,11 @@ export class MailService {
       from: `"MyApp" <${process.env.MAIL_USER}>`,
       to,
       subject: 'Email Verification',
-      html: `<p>Click <a href="${verificationLink}">here</a> to verify your email.</p>`,
+      html: `
+        <h2>Salom!</h2>
+        <p>Hisobingizni tasdiqlash uchun quyidagi linkga bosing:</p>
+        <a href="${verificationLink}">${verificationLink}</a>
+      `,
     });
   }
 }

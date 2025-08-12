@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/entity/user.entity';
@@ -11,6 +12,7 @@ export class AuthService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private mailService: MailService,
+    private jwtService: JwtService,
   ) {}
 
   async hashPassword(password: string): Promise<string> {
@@ -35,14 +37,12 @@ export class AuthService {
       name,
       email,
       password: hashedPassword,
+      isVerified: false,
     });
     await this.userRepository.save(user);
-    return user;
 
     // Tasdiqlash tokeni yaratamiz
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: '1d',
-    });
+    const token = this.jwtService.sign({ email });
 
     // Tasdiqlash emailini yuboramiz
     await this.mailService.sendVerificationMail(email, token);
@@ -52,9 +52,7 @@ export class AuthService {
 
   async verifyEmail(token: string) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET) as {
-        email: string;
-      };
+      const decoded = this.jwtService.verify<{ email: string }>(token);
       const user = await this.userRepository.findOne({
         where: { email: decoded.email },
       });
